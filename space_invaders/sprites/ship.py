@@ -9,14 +9,16 @@ class Ship:
     basedir = os.path.dirname(__file__)
     sprite_path = os.path.join(basedir, 'img/ship.png')
 
-    def __init__(self, screen):
+    def __init__(self, ship_settings, screen):
         self.screen = screen
         self.screen_rect = screen.get_rect()
+        self.settings = ship_settings
         # Initial positioning
         self.img = pygame.image.load(self.sprite_path)
         self.rect = self.img.get_rect()
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
+        self.center = float(self.rect.centerx)
         # Movement flags
         self.moving_left = False
         self.moving_right = False
@@ -31,8 +33,10 @@ class Ship:
         """
         Update the ship's position based on movement flag.
         """
-        if self.moving_right:
-            self.rect.centerx += 1
+        if self.moving_right and self.rect.right < self.screen_rect.right:
+            self.center += self.settings.ship_speed_factor
 
-        if self.moving_left:
-            self.rect.centerx -= 1
+        if self.moving_left and self.rect.left > 0:
+            self.center -= self.settings.ship_speed_factor
+
+        self.rect.centerx = self.center
