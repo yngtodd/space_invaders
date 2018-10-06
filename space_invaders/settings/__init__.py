@@ -1,1 +1,1 @@
-from screen_settings import ScreenSettings
+from .screen_settings import ScreenSettings
