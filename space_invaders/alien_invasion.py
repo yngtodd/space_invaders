@@ -1,5 +1,6 @@
 import sys
 import pygame
+from pygame.sprint import Group
 
 from space_invaders.sprites import Ship
 from space_invaders.settings import ScreenSettings, ShipSettings
@@ -14,11 +15,13 @@ def run_game():
     pygame.display.set_caption("Space Invaders")
 
     ship = Ship(ship_settings, screen)
+    ammo = Group()
 
     while True:
-        gf.check_events(ship)
+        gf.check_events(screen_settings, screen, ship, ammo)
         ship.update()
-        gf.update_screen(screen_settings, screen, ship)
+        ammo.update()
+        gf.update_screen(screen_settings, screen, ship, ammo)
 
 
 def main():
