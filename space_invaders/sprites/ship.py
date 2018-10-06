@@ -12,6 +12,7 @@ class Ship:
     def __init__(self, screen):
         self.screen = screen
         self.screen_rect = screen.get_rect()
+        # Initial positioning
         self.img = pygame.image.load(self.sprite_path)
         self.rect = self.img.get_rect()
         self.rect.centerx = self.screen_rect.centerx
