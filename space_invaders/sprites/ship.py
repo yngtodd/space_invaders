@@ -17,11 +17,15 @@ class Ship:
         self.img = pygame.image.load(self.sprite_path)
         self.rect = self.img.get_rect()
         self.rect.centerx = self.screen_rect.centerx
+        self.rect.centery = self.screen_rect.centery
         self.rect.bottom = self.screen_rect.bottom
-        self.center = float(self.rect.centerx)
+        self.centerx = float(self.rect.centerx)
+        self.centery = float(self.rect.centery)
         # Movement flags
         self.moving_left = False
         self.moving_right = False
+        self.moving_up = False
+        self.moving_down = False
 
     def blitme(self):
         """
@@ -34,9 +38,16 @@ class Ship:
         Update the ship's position based on movement flag.
         """
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.center += self.settings.ship_speed_factor
+            self.centerx += self.settings.ship_speed_factor
 
         if self.moving_left and self.rect.left > 0:
-            self.center -= self.settings.ship_speed_factor
+            self.centerx -= self.settings.ship_speed_factor
 
-        self.rect.centerx = self.center
+        if self.moving_up and self.screen_rect.top < self.rect.top:
+            self.centery -= self.settings.ship_speed_factor
+
+        if self.moving_down and self.screen_rect.bottom > self.rect.bottom:
+            self.centery += self.settings.ship_speed_factor
+
+        self.rect.centerx = self.centerx
+        self.rect.centery = self.centery
