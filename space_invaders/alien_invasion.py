@@ -3,6 +3,7 @@ import pygame
 
 from space_invaders.sprites import Ship
 from space_invaders.settings import ScreenSettings
+import space_invaders.mechanics.game_functions as gf
 
 
 def run_game():
@@ -14,13 +15,9 @@ def run_game():
     ship = Ship(screen)
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        #screen.fill(screen_settings.bg_color)
-        ship.blitme()
-        pygame.display.flip()
+        gf.check_events(ship)
+        ship.update()
+        gf.update_screen(screen_settings, screen, ship)
 
 
 def main():
