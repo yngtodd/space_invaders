@@ -22,7 +22,7 @@ cwd = os.getcwd()
 parent = os.path.dirname(cwd)
 sys.path.insert(0, parent)
 
-#import space_invaders
+import space_invaders
 import sphinx_rtd_theme
 
 # -- General configuration -----------------------------------------------------

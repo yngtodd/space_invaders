@@ -35,7 +35,7 @@ setup(
     package_dir={'space_invaders': 'space_invaders'},
     include_package_data=True,
     install_requires=[
-        pygame
+        'pygame'
     ],
     license='MIT',
     zip_safe=False,
