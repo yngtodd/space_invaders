@@ -118,10 +118,12 @@ def change_fleet_direction(alien_settings, aliens):
     alien_settings.fleet_direction *= -1
 
 
-def update_aliens(alien_settings, aliens):
+def update_aliens(alien_settings, ship, aliens):
     """Update the positions of alien fleet."""
     check_fleet_edges(alien_settings, aliens)
     aliens.update()
+    if pygame.sprite.spritecollideany(ship, aliens):
+        print('Ship Hit!')
 
 
 def update_screen(screen_settings, screen, ship, ammo, aliens):
