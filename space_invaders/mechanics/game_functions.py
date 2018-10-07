@@ -123,7 +123,8 @@ def check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, s
     """Check if any aliens have reacehd the bottom of the screen."""
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
-        ship_hit(alien_settings, ship_settings, screen_settings, screen, ship, aliens, ammo)
+        if alien.rect.bottom >= screen_rect.bottom:
+            ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
 
 
 def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
@@ -143,6 +144,7 @@ def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen,
     """Update the positions of alien fleet."""
     check_fleet_edges(alien_settings, aliens)
     aliens.update()
+    check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
     if pygame.sprite.spritecollideany(ship, aliens):
         ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
 
