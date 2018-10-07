@@ -26,8 +26,7 @@ def check_keydown_events(event, screen_settings, weapon_settings, screen, ship, 
     if event.key == pygame.K_DOWN:
         ship.moving_down = True
     if event.key == pygame.K_SPACE:
-        new_projectile = Weapon(weapon_settings, screen, ship)
-        ammo.add(new_projectile)
+        fire_weapon(weapon_settings, screen, ship, ammo)
 
 
 def check_keyup_events(event, ship):
@@ -40,6 +39,23 @@ def check_keyup_events(event, ship):
         ship.moving_up = False
     if event.key == pygame.K_DOWN:
         ship.moving_down = False
+
+
+def update_ammo(ammo):
+    """Update position of projectiles."""
+    ammo.update()
+
+    # Clear bullets that go off screen.
+    for bullet in ammo.copy():
+        if bullet.rect.bottom <= 0:
+            ammo.remove(bullet)
+
+
+def fire_weapon(weapon_settings, screen, ship, ammo):
+    """Fire weapon if limit not yet reached"""
+    if len(ammo) < weapon_settings.ammo_allowed:
+        new_ammo = Weapon(weapon_settings, screen, ship)
+        ammo.add(new_ammo)
 
 
 def update_screen(screen_settings, screen, ship, ammo):

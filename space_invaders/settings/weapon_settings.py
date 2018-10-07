@@ -7,3 +7,4 @@ class WeaponSettings:
         self.width = 3
         self.height = 15
         self.color = (90, 30, 60)
+        self.ammo_allowed = 5
