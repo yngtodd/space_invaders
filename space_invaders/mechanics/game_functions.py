@@ -27,6 +27,8 @@ def check_keydown_events(event, screen_settings, weapon_settings, screen, ship, 
         ship.moving_down = True
     if event.key == pygame.K_SPACE:
         fire_weapon(weapon_settings, screen, ship, ammo)
+    if event.key == pygame.K_BACKSPACE:
+        sys.exit()
 
 
 def check_keyup_events(event, ship):
@@ -44,7 +46,6 @@ def check_keyup_events(event, ship):
 def update_ammo(ammo):
     """Update position of projectiles."""
     ammo.update()
-
     # Clear bullets that go off screen.
     for bullet in ammo.copy():
         if bullet.rect.bottom <= 0:
@@ -58,10 +59,11 @@ def fire_weapon(weapon_settings, screen, ship, ammo):
         ammo.add(new_ammo)
 
 
-def update_screen(screen_settings, screen, ship, ammo):
+def update_screen(screen_settings, screen, ship, ammo, alien):
     """Update images on the screen and flip to the new screen."""
     screen.fill(screen_settings.bg_color)
     for projectile in ammo.sprites():
         projectile.draw_weapon()
     ship.blitme()
+    alien.blitme()
     pygame.display.flip()
