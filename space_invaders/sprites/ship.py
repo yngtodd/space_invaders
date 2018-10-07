@@ -13,14 +13,7 @@ class Ship:
         self.screen = screen
         self.screen_rect = screen.get_rect()
         self.settings = ship_settings
-        # Initial positioning
-        self.img = pygame.image.load(self.sprite_path)
-        self.rect = self.img.get_rect()
-        self.rect.centerx = self.screen_rect.centerx
-        self.rect.centery = self.screen_rect.centery
-        self.rect.bottom = self.screen_rect.bottom
-        self.centerx = float(self.rect.centerx)
-        self.centery = float(self.rect.centery)
+        self.set_initial_position()
         # Movement flags
         self.moving_left = False
         self.moving_right = False
@@ -32,6 +25,21 @@ class Ship:
         Draw the ship at the current location.
         """
         self.screen.blit(self.img, self.rect)
+
+    def center_ship(self):
+        """Center the ship on the screen."""
+        self.centerx = self.screen_rect.centerx
+        self.centery = self.screen_rect.bottom
+
+    def set_initial_position(self):
+        """Initial position of ship"""
+        self.img = pygame.image.load(self.sprite_path)
+        self.rect = self.img.get_rect()
+        self.rect.centerx = self.screen_rect.centerx
+        self.rect.centery = self.screen_rect.centery
+        self.rect.bottom = self.screen_rect.bottom
+        self.centerx = float(self.rect.centerx)
+        self.centery = float(self.rect.centery)
 
     def update(self):
         """

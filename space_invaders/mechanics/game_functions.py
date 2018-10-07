@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from time import sleep
 from space_invaders.sprites import Weapon, Alien
 
 
@@ -118,12 +119,25 @@ def change_fleet_direction(alien_settings, aliens):
     alien_settings.fleet_direction *= -1
 
 
-def update_aliens(alien_settings, ship, aliens):
+def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
+    """Respond to ship being hit by alien."""
+    ship_settings.ships_left -= 1
+
+    aliens.empty()
+    ammo.empty()
+
+    create_fleet(alien_settings, screen_settings, screen, ship, aliens)
+    ship.set_initial_position()
+
+    sleep(0.5)
+
+
+def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
     """Update the positions of alien fleet."""
     check_fleet_edges(alien_settings, aliens)
     aliens.update()
     if pygame.sprite.spritecollideany(ship, aliens):
-        print('Ship Hit!')
+        ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
 
 
 def update_screen(screen_settings, screen, ship, ammo, aliens):

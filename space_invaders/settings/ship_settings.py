@@ -3,3 +3,4 @@ class ShipSettings:
     def __init__(self):
         self.ship_speed_factor = 2.5
         self.ship_limit = 3
+        self.ships_left = self.ship_limit
