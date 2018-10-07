@@ -46,16 +46,19 @@ def check_keyup_events(event, ship):
 def update_ammo(alien_settings, screen_settings, screen, ship, aliens, ammo):
     """Update position of projectiles."""
     ammo.update()
-    collisions = pygame.sprite.groupcollide(ammo, aliens, True, True)
-
-    if len(aliens) == 0:
-        ammo.empty()
-        create_fleet(alien_settings, screen_settings, screen, ship, aliens)
-
+    check_ammo_alien_collisions(alien_settings, screen_settings, screen, ship, aliens, ammo)
     # Clear bullets that go off screen.
     for bullet in ammo.copy():
         if bullet.rect.bottom <= 0:
             ammo.remove(bullet)
+
+
+def check_ammo_alien_collisions(alien_settings, screen_settings, screen, ship, aliens, ammo):
+    """Respond to ammo-alien collisions."""
+    collisions = pygame.sprite.groupcollide(ammo, aliens, True, True)
+    if len(aliens) == 0:
+        ammo.empty()
+        create_fleet(alien_settings, screen_settings, screen, ship, aliens)
 
 
 def fire_weapon(weapon_settings, screen, ship, ammo):
