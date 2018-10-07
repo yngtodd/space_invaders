@@ -6,5 +6,5 @@ class WeaponSettings:
         self.speed_factor = 3
         self.width = 3
         self.height = 15
-        self.color = (90, 30, 60)
+        self.color = (255, 215, 0)
         self.ammo_allowed = 5
