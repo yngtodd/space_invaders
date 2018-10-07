@@ -94,6 +94,27 @@ def create_fleet(alien_settings, screen_settings, screen, ship, aliens):
             create_alien(alien_settings, screen, aliens, alien_number, row_number)
 
 
+def check_fleet_edges(alien_settings, aliens):
+    """"""
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(alien_settings, aliens)
+            break
+
+
+def change_fleet_direction(alien_settings, aliens):
+    """Drop the entire fleet and change fleet direction."""
+    for alien in aliens.sprites():
+        alien.rect.y += alien_settings.fleet_drop_speed
+    alien_settings.fleet_direction *= -1
+
+
+def update_aliens(alien_settings, aliens):
+    """Update the positions of alien fleet."""
+    check_fleet_edges(alien_settings, aliens)
+    aliens.update()
+
+
 def update_screen(screen_settings, screen, ship, ammo, aliens):
     """Update images on the screen and flip to the new screen."""
     screen.fill(screen_settings.bg_color)
