@@ -129,7 +129,7 @@ def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship
     create_fleet(alien_settings, screen_settings, screen, ship, aliens)
     ship.set_initial_position()
 
-    sleep(0.5)
+    sleep(0.25)
 
 
 def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):

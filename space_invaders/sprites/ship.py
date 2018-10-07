@@ -26,11 +26,6 @@ class Ship:
         """
         self.screen.blit(self.img, self.rect)
 
-    def center_ship(self):
-        """Center the ship on the screen."""
-        self.centerx = self.screen_rect.centerx
-        self.centery = self.screen_rect.bottom
-
     def set_initial_position(self):
         """Initial position of ship"""
         self.img = pygame.image.load(self.sprite_path)
