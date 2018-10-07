@@ -1,6 +1,7 @@
 class GameStats:
     """Track statistics for Space Invaders."""
     def __init__(self, ship_settings):
+        self.game_active = True
         self.ship_settings = ship_settings
         self.reset_stats()
 

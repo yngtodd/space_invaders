@@ -119,17 +119,24 @@ def change_fleet_direction(alien_settings, aliens):
     alien_settings.fleet_direction *= -1
 
 
+def check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
+    """Check if any aliens have reacehd the bottom of the screen."""
+    screen_rect = screen.get_rect()
+    for alien in aliens.sprites():
+        ship_hit(alien_settings, ship_settings, screen_settings, screen, ship, aliens, ammo)
+
+
 def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
     """Respond to ship being hit by alien."""
-    ship_settings.ships_left -= 1
-
-    aliens.empty()
-    ammo.empty()
-
-    create_fleet(alien_settings, screen_settings, screen, ship, aliens)
-    ship.set_initial_position()
-
-    sleep(0.25)
+    if stats.ships_left > 0:
+        stats.ships_left -= 1
+        aliens.empty()
+        ammo.empty()
+        create_fleet(alien_settings, screen_settings, screen, ship, aliens)
+        ship.set_initial_position()
+        sleep(0.25)
+    else:
+        stats.game_active = False
 
 
 def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
