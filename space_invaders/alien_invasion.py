@@ -12,10 +12,12 @@ import space_invaders.mechanics.game_functions as gf
 
 def run_game():
     pygame.init()
+
     ship_settings = ShipSettings()
     weapon_settings = WeaponSettings()
     alien_settings = AlienSettings()
     screen_settings = ScreenSettings()
+
     screen = pygame.display.set_mode((screen_settings.width, screen_settings.height))
     pygame.display.set_caption("Space Invaders")
 
