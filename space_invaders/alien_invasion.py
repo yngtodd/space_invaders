@@ -19,15 +19,16 @@ def run_game():
     screen = pygame.display.set_mode((screen_settings.width, screen_settings.height))
     pygame.display.set_caption("Space Invaders")
 
-    alien = Alien(alien_settings, screen)
     ship = Ship(ship_settings, screen)
     ammo = Group()
+    aliens = Group()
+    gf.create_fleet(alien_settings, screen_settings, screen, aliens)
 
     while True:
         gf.check_events(screen_settings, weapon_settings, screen, ship, ammo)
         ship.update()
         gf.update_ammo(ammo)
-        gf.update_screen(screen_settings, screen, ship, ammo, alien)
+        gf.update_screen(screen_settings, screen, ship, ammo, aliens)
 
 
 def main():

@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-from space_invaders.sprites import Weapon
+from space_invaders.sprites import Weapon, Alien
 
 
 def check_events(screen_settings, weapon_settings, screen, ship, ammo):
@@ -59,11 +59,25 @@ def fire_weapon(weapon_settings, screen, ship, ammo):
         ammo.add(new_ammo)
 
 
-def update_screen(screen_settings, screen, ship, ammo, alien):
+def create_fleet(alien_settings, screen_settings, screen, aliens):
+    """Create a fleet of aliens."""
+    alien = Alien(alien_settings, screen)
+    alien_width = alien.rect.width
+    available_space_x = screen_settings.width - 2 * alien_width
+    num_aliens_x = int(available_space_x / (2 * alien_width))
+
+    for alien_number in range(num_aliens_x):
+        alien = Alien(alien_settings, screen)
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        aliens.add(alien)
+
+
+def update_screen(screen_settings, screen, ship, ammo, aliens):
     """Update images on the screen and flip to the new screen."""
     screen.fill(screen_settings.bg_color)
     for projectile in ammo.sprites():
         projectile.draw_weapon()
     ship.blitme()
-    alien.blitme()
+    aliens.draw(screen)
     pygame.display.flip()
