@@ -5,24 +5,29 @@ from time import sleep
 from space_invaders.sprites import Weapon, Alien
 
 
-def check_events(screen_settings, screen, stats, weapon_settings, ship, ammo, play_button):
+def check_events(screen_settings, alien_settings, screen, stats, weapon_settings, ship, aliens, ammo, play_button):
     """Respond to keypresses and mouse events"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(stats, play_button, mouse_x, mouse_y)
+            check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, screen_settings, weapon_settings, screen, ship, ammo)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
 
-def check_play_button(stats, play_button, mouse_x, mouse_y):
+def check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo):
     """Start the game when the player clicks Play."""
     if play_button.rect.collidepoint(mouse_x, mouse_y):
+        stats.reset_stats()
         stats.game_active = True
+        aliens.empty()
+        ammo.empty()
+        create_fleet(alien_settings, screen_settings, screen, ship, aliens)
+        ship.set_initial_position()
 
 
 def check_keydown_events(event, screen_settings, weapon_settings, screen, ship, ammo):
