@@ -1,10 +1,6 @@
-.. raw:: html
-
-    <embed>
-        <p align="center">
-            <img width="300" src="https://github.com/yngtodd/space_invaders/blob/master/img/pylibrary.png">
-        </p>
-    </embed>
+ .. image:: img/space_invaders.gif
+    :width: 300
+    :align: center
 
 --------------------------
 
@@ -16,13 +12,7 @@
 
 
 =============================
-SpaceInvaders
+Space Invaders
 =============================
 
 Space Invaders game built with Pygame.
-
-Features
---------
-
-* TODO
-
