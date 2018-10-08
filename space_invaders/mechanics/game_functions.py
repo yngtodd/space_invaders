@@ -169,9 +169,10 @@ def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen,
         ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
 
 
-def update_screen(screen_settings, screen, stats, ship, ammo, aliens, play_button):
+def update_screen(screen_settings, screen, stats, ship, ammo, aliens, play_button, sb):
     """Update images on the screen and flip to the new screen."""
     screen.fill(screen_settings.bg_color)
+    sb.show_score()
 
     if not stats.game_active:
         play_button.draw_button()
