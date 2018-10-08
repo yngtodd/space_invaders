@@ -2,6 +2,7 @@ import sys
 import pygame
 from pygame.sprite import Group
 
+from space_invaders.menu import Button
 from space_invaders.stats import GameStats
 from space_invaders.sprites import Ship, Alien
 from space_invaders.settings import ScreenSettings
@@ -21,6 +22,7 @@ def run_game():
 
     screen = pygame.display.set_mode((screen_settings.width, screen_settings.height))
     pygame.display.set_caption("Space Invaders")
+    play_button = Button(screen_settings, screen, "Play")
     stats = GameStats(ship_settings)
 
     ammo = Group()
@@ -29,12 +31,12 @@ def run_game():
     gf.create_fleet(alien_settings, screen_settings, screen, ship, aliens)
 
     while True:
-        gf.check_events(screen_settings, weapon_settings, screen, ship, ammo)
+        gf.check_events(screen_settings, screen, stats, weapon_settings, ship, ammo, play_button)
         if stats.game_active:
             ship.update()
             gf.update_ammo(alien_settings, screen_settings, screen, ship, aliens, ammo)
             gf.update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
-        gf.update_screen(screen_settings, screen, ship, ammo, aliens)
+        gf.update_screen(screen_settings, screen, stats, ship, ammo, aliens, play_button)
 
 
 def main():
