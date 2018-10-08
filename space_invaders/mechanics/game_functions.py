@@ -28,6 +28,7 @@ def check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_setti
         sb.prep_score()
         sb.prep_high_score()
         sb.prep_level()
+        sb.prep_ships()
         aliens.empty()
         ammo.empty()
         create_fleet(alien_settings, screen_settings, screen, ship, aliens)
@@ -157,18 +158,19 @@ def change_fleet_direction(alien_settings, aliens):
     alien_settings.fleet_direction *= -1
 
 
-def check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
+def check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb):
     """Check if any aliens have reacehd the bottom of the screen."""
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
-            ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
+            ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb)
 
 
-def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
+def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb):
     """Respond to ship being hit by alien."""
     if stats.ships_left > 0:
         stats.ships_left -= 1
+        sb.prep_ships()
         aliens.empty()
         ammo.empty()
         create_fleet(alien_settings, screen_settings, screen, ship, aliens)
@@ -179,13 +181,13 @@ def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship
         pygame.mouse.set_visible(True)
 
 
-def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
+def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb):
     """Update the positions of alien fleet."""
     check_fleet_edges(alien_settings, aliens)
     aliens.update()
-    check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
+    check_aliens_bottom(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb)
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
+        ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb)
 
 
 def update_screen(screen_settings, screen, stats, ship, ammo, aliens, play_button, sb):

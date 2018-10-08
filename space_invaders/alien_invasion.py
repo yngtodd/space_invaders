@@ -25,7 +25,7 @@ def run_game():
     pygame.display.set_caption("Space Invaders")
     play_button = Button(screen_settings, screen, "Play")
     stats = GameStats(ship_settings)
-    sb = ScoreBoard(screen_settings, screen, stats)
+    sb = ScoreBoard(screen_settings, ship_settings, screen, stats)
 
     ammo = Group()
     aliens = Group()
@@ -37,7 +37,7 @@ def run_game():
         if stats.game_active:
             ship.update()
             gf.update_ammo(alien_settings, ship_settings, weapon_settings, screen_settings, screen, ship, aliens, ammo, stats, sb)
-            gf.update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo)
+            gf.update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo, sb)
         gf.update_screen(screen_settings, screen, stats, ship, ammo, aliens, play_button, sb)
 
 
