@@ -2,7 +2,7 @@
 
     <embed>
         <p align="center">
-            <img width="300" src="https://github.com/yngtodd/space_invaders/blob/master/img/space_invaders.gif">
+            <img width="500" src="https://github.com/yngtodd/space_invaders/blob/master/img/space_invaders.gif">
         </p>
     </embed>
 --------------------------
