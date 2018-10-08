@@ -21,13 +21,15 @@ def check_events(screen_settings, alien_settings, screen, stats, weapon_settings
 
 def check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo):
     """Start the game when the player clicks Play."""
-    if play_button.rect.collidepoint(mouse_x, mouse_y):
+    button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not stats.game_active:
         stats.reset_stats()
         stats.game_active = True
         aliens.empty()
         ammo.empty()
         create_fleet(alien_settings, screen_settings, screen, ship, aliens)
         ship.set_initial_position()
+        pygame.mouse.set_visible(False)
 
 
 def check_keydown_events(event, screen_settings, weapon_settings, screen, ship, ammo):
@@ -152,6 +154,7 @@ def ship_hit(alien_settings, ship_settings, screen_settings, stats, screen, ship
         sleep(0.25)
     else:
         stats.game_active = False
+        pygame.mouse.set_visible(True)
 
 
 def update_aliens(alien_settings, ship_settings, screen_settings, stats, screen, ship, aliens, ammo):
