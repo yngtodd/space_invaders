@@ -1,6 +1,6 @@
  .. image:: img/space_invaders.gif
     :width: 300
-    :align: center
+    :align: middle 
 
 --------------------------
 
