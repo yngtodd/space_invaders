@@ -1,5 +1,5 @@
  .. image:: img/space_invaders.gif
-    :align: center 
+    :align: right 
 
 --------------------------
 
