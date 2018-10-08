@@ -1,8 +1,10 @@
- .. class:: center
- 
- .. image:: img/space_invaders.gif
-    :align: center
+.. raw:: html
 
+    <embed>
+        <p align="center">
+            <img width="300" src="https://github.com/yngtodd/space_invaders/blob/master/img/space_invaders.gif">
+        </p>
+    </embed>
 --------------------------
 
 .. image:: https://badge.fury.io/py/space_invaders.png
