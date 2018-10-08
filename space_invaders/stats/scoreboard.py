@@ -12,6 +12,7 @@ class ScoreBoard:
         self.font = pygame.font.SysFont(None, 48)
         self.prep_score()
         self.prep_high_score()
+        self.prep_level()
 
     def prep_score(self):
         """Turn score into a rendered image."""
@@ -31,8 +32,16 @@ class ScoreBoard:
         self.high_score_rect.centerx = self.screen_rect.centerx
         self.high_score_rect.top = self.score_rect.top
 
+    def prep_level(self):
+        """Turn the level into a rendered image."""
+        self.level_img = self.font.render(str(self.stats.level), True, self.text_color, self.screen_settings.bg_color)
+        self.level_rect = self.level_img.get_rect()
+        self.level_rect.right = self.score_rect.right
+        self.level_rect.top = self.score_rect.bottom + 10
+
     def show_score(self):
         """Draw score to the screen."""
         self.screen.blit(self.score_img, self.score_rect)
         self.screen.blit(self.high_score_img, self.high_score_rect)
+        self.screen.blit(self.level_img, self.level_rect)
 

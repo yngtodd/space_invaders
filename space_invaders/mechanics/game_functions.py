@@ -5,26 +5,29 @@ from time import sleep
 from space_invaders.sprites import Weapon, Alien
 
 
-def check_events(screen_settings, alien_settings, screen, stats, weapon_settings, ship, aliens, ammo, play_button):
+def check_events(screen_settings, alien_settings, screen, stats, weapon_settings, ship, aliens, ammo, play_button, sb):
     """Respond to keypresses and mouse events"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo)
+            check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo, sb)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, screen_settings, weapon_settings, screen, ship, ammo)
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
 
-def check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo):
+def check_play_button(screen, stats, play_button, mouse_x, mouse_y, screen_settings, alien_settings, ship, aliens, ammo, sb):
     """Start the game when the player clicks Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
         stats.reset_stats()
         stats.game_active = True
+        sb.prep_score()
+        sb.prep_high_score()
+        sb.prep_level()
         aliens.empty()
         ammo.empty()
         create_fleet(alien_settings, screen_settings, screen, ship, aliens)
@@ -93,6 +96,8 @@ def check_ammo_alien_collisions(alien_settings, ship_settings, weapon_settings, 
         ship_settings.increase_speed()
         weapon_settings.increase_speed()
         create_fleet(alien_settings, screen_settings, screen, ship, aliens)
+        stats.level += 1
+        sb.prep_level()
 
 
 def fire_weapon(weapon_settings, screen, ship, ammo):

@@ -10,3 +10,4 @@ class GameStats:
         """Initialize statistics for the game."""
         self.ships_left = self.ship_settings.ship_limit
         self.score = 0
+        self.level = 1
