@@ -41,16 +41,16 @@ class Ship:
         Update the ship's position based on movement flag.
         """
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.centerx += self.settings.ship_speed_factor
+            self.centerx += self.settings.speed_factor
 
         if self.moving_left and self.rect.left > 0:
-            self.centerx -= self.settings.ship_speed_factor
+            self.centerx -= self.settings.speed_factor
 
         if self.moving_up and self.screen_rect.top < self.rect.top:
-            self.centery -= self.settings.ship_speed_factor
+            self.centery -= self.settings.speed_factor
 
         if self.moving_down and self.screen_rect.bottom > self.rect.bottom:
-            self.centery += self.settings.ship_speed_factor
+            self.centery += self.settings.speed_factor
 
         self.rect.centerx = self.centerx
         self.rect.centery = self.centery
