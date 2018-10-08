@@ -60,6 +60,13 @@ def check_keyup_events(event, ship):
         ship.moving_down = False
 
 
+def check_high_score(stats, sb):
+    """Check to see if there's a new high score."""
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
+
+
 def update_ammo(alien_settings, ship_settings, weapon_settings, screen_settings, screen, ship, aliens, ammo, stats, sb):
     """Update position of projectiles."""
     ammo.update()
@@ -73,9 +80,13 @@ def update_ammo(alien_settings, ship_settings, weapon_settings, screen_settings,
 def check_ammo_alien_collisions(alien_settings, ship_settings, weapon_settings, screen_settings, screen, ship, aliens, ammo, stats, sb):
     """Respond to ammo-alien collisions."""
     collisions = pygame.sprite.groupcollide(ammo, aliens, True, True)
+
     if collisions:
-        stats.score += alien_settings.alien_points
-        sb.prep_score()
+        for aliens in collisions.values():
+            stats.score += alien_settings.alien_points * len(aliens)
+            sb.prep_score()
+        check_high_score(stats, sb)
+
     if len(aliens) == 0:
         ammo.empty()
         alien_settings.increase_speed()
